@@ -1,0 +1,61 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+#map {
+    width: 100%; /* Ширина на весь доступный контейнер */
+    height: 80vh; /* Высота 80% от высоты окна браузера */
+    margin: 20px auto; /* Отступы сверху/снизу и центрирование */
+    border: 1px solid #ccc; /* Рамка для наглядности */
+    border-radius: 8px; /* Скругление углов */
+}
+
+.controls {
+    margin: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    margin: 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+#green {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#orange {
+    background-color: #FF9800;
+    color: white;
+}
+
+#blue {
+    background-color: #2196F3;
+    color: white;
+}
+
+#clear {
+    background-color: #f44336;
+    color: white;
+}
+
+#undo {
+    background-color: #9C27B0;
+    color: white;
+}
+
+#redo {
+    background-color: #673AB7;
+    color: white;
+}
