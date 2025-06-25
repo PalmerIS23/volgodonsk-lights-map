@@ -159,4 +159,57 @@ function init() {
             default: return 'Неизвестно';
         }
     }
+    // Конфигурация Firebase (замените на вашу!)
+const firebaseConfig = {
+  apiKey: "AIzaSyCbsllvaFUCb84KkqPxsrhEkBMPFbeeQNc",
+  authDomain: "https://volgodonsk-lights.firebaseapp.com",
+  databaseURL: "https://volgodonsk-lights-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "volgodonsk-lights",
+  storageBucket: "https://volgodonsk-lights.firebasestorage.app",
+  messagingSenderId: "317295312829",
+  appId: "1:317295312829:web:b639f1157c1268808c5cd4"
+};
+
+// Инициализация Firebase
+firebase.initializeApp(firebaseConfig);
+const database = firebase.database();
+
+// Функция добавления метки (обновлённая)
+function addPlacemark(coords, type) {
+  const placemark = {
+    coords: coords,
+    type: type,
+    timestamp: firebase.database.ServerValue.TIMESTAMP
+  };
+  
+  // Добавляем в Firebase
+  const newRef = database.ref('placemarks/').push();
+  newRef.set(placemark);
+}
+
+// Загрузка меток из Firebase
+function loadPlacemarks() {
+  database.ref('placemarks/').on('value', (snapshot) => {
+    // Очищаем текущие метки
+    map.geoObjects.removeAll();
+    
+    // Добавляем все метки из базы
+    snapshot.forEach((childSnapshot) => {
+      const data = childSnapshot.val();
+      createPlacemarkOnMap(data.coords, data.type);
+    });
+  });
+}
+
+// Создание метки на карте (без сохранения в Firebase)
+function createPlacemarkOnMap(coords, type) {
+  const placemark = new ymaps.Placemark(coords, {
+    hintContent: `Фонарь (${type})`
+  }, {
+    preset: 'islands#circleIcon',
+    iconColor: colors[type]
+  });
+  
+  map.geoObjects.add(placemark);
+}
 }
